@@ -1,0 +1,65 @@
+﻿@model SistemaDeVendas.Models.Compra
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Compra</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <select asp-for="ClienteId" class ="form-select" asp-items="ViewBag.ClienteId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProdutoId" class="control-label"></label>
+                <select asp-for="ProdutoId" class ="form-select" asp-items="ViewBag.ProdutoId"></select>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="DataCompra" class="control-label"></label>
+                <input asp-for="DataCompra" class="form-control" value="@DateTime.Now" />
+                <span asp-validation-for="DataCompra" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FormaPagamento" class="control-label"></label>
+                <select asp-for="FormaPagamento" class="form-control form-select">
+                    <option value="Crédito 1x">Crédito 1x</option>
+                    <option value="Crédito 2x">Crédito 2x</option>
+                    <option value="Crédito 3x">Crédito 3x</option>
+                    <option value="Crédito 4x">Crédito 4x</option>
+                    <option value="Crédito 5x">Crédito 5x</option>
+                    <option value="Crédito 6x">Crédito 6x</option>
+                    <option value="Crédito 7x">Crédito 7x</option>
+                    <option value="Crédito 8x">Crédito 8x</option>
+                    <option value="Crédito 9x">Crédito 9x</option>
+                    <option value="Crédito 10x">Crédito 10x</option>
+                    <option value="Crédito 11x">Crédito 11x</option>
+                    <option value="Crédito 12x">Crédito 12x</option>
+                    <option value="Débito">Débito</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="PIX">PIX</option>
+                </select>
+                <span asp-validation-for="FormaPagamento" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group row-cols-lg-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <button asp-action="Index" value="Voltar" class="btn btn-danger">Voltar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div> 
+    <a asp-action="Index">Back to List</a>
+</div> *@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
