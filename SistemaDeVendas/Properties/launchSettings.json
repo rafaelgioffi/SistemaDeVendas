@@ -2,7 +2,7 @@
   "profiles": {
     "SistemaDeVendas": {
       "commandName": "Project",
-      "workingDirectory": "C:\\Dev\\.NET\\SistemaDeVendas",
+      //"workingDirectory": "C:\\Dev\\.NET\\SistemaDeVendas",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
