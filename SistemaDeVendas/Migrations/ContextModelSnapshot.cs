@@ -98,9 +98,6 @@ namespace SistemaDeVendas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProdutoID"), 1L, 1);
 
-                    b.Property<int?>("ClienteID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -109,8 +106,6 @@ namespace SistemaDeVendas.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ProdutoID");
-
-                    b.HasIndex("ClienteID");
 
                     b.ToTable("Produtos");
 
@@ -140,18 +135,6 @@ namespace SistemaDeVendas.Migrations
                     b.Navigation("Cliente");
 
                     b.Navigation("Produto");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.Produto", b =>
-                {
-                    b.HasOne("SistemaDeVendas.Models.Cliente", null)
-                        .WithMany("Produtos")
-                        .HasForeignKey("ClienteID");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.Cliente", b =>
-                {
-                    b.Navigation("Produtos");
                 });
 #pragma warning restore 612, 618
         }

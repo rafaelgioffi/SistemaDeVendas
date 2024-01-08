@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<Context>
-            (options => options.UseSqlServer("Data Source=localhost,1433; Initial Catalog=projetoFinal; User ID=sa; password=1q2w3e4r@#$;language=Portuguese"));
+            (options => options.UseSqlServer("Data Source=localhost,1433; Initial Catalog=SistemaVendas; User ID=sa; password=1q2w3e4r@#$;language=Portuguese"));
 
 var app = builder.Build();
 
@@ -42,6 +42,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Compras}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
