@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Models;
@@ -24,6 +20,7 @@ namespace SistemaDeVendas.Controllers
             var context = _context.Compras.Include(c => c.Cliente).Include(p => p.Produto);
             return View(await context.ToListAsync());
         }
+
 
         // GET: Compras/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -65,8 +62,8 @@ namespace SistemaDeVendas.Controllers
             //if (ModelState.IsValid)
             //{
             _context.Add(compra);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
             //}
             //ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteID", "Nome", compra.ClienteId);
             //ViewData["ProdutoId"] = new SelectList(_context.Produtos, "ProdutoID", "Nome", compra.ProdutoId);
@@ -107,23 +104,23 @@ namespace SistemaDeVendas.Controllers
             ViewData["ProdutoId"] = new SelectList(_context.Produtos, "ProdutoID", "Nome", compra.ProdutoId);
             //if (ModelState.IsValid)
             //{
-                try
+            try
+            {
+                _context.Update(compra);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CompraExists(compra.CompraId))
                 {
-                    _context.Update(compra);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!CompraExists(compra.CompraId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
-                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index));
             //}
             //ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteID", "Nome", compra.ClienteId);
             //ViewData["ProdutoId"] = new SelectList(_context.Produtos, "ProdutoID", "Nome", compra.ProdutoId);
@@ -164,14 +161,14 @@ namespace SistemaDeVendas.Controllers
             {
                 _context.Compras.Remove(compra);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CompraExists(int id)
         {
-          return (_context.Compras?.Any(e => e.CompraId == id)).GetValueOrDefault();
+            return (_context.Compras?.Any(e => e.CompraId == id)).GetValueOrDefault();
         }
     }
 }

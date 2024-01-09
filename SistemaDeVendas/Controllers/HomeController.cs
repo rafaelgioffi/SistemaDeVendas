@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Models;
 using System.Diagnostics;
 
@@ -6,15 +7,24 @@ namespace SistemaDeVendas.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly Context _context;
+        //private readonly ILogger<HomeController> _logger;
+        public HomeController(Context context)
         {
-            _logger = logger;
+            _context = context;
         }
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         public IActionResult Index()
         {
+            ViewData["TotalClientes"] = _context.Clientes.Count();
+            ViewData["TotalVendas"] = _context.Compras.Count();
+            ViewData["TotalProdutos"] = _context.Produtos.Count();
+            
             return View();
         }
 

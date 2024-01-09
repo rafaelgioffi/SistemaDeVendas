@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient.Server;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SistemaDeVendas.Models
 {
@@ -11,14 +9,14 @@ namespace SistemaDeVendas.Models
 
         [Display(Name = "Cliente")]
         public int ClienteId { get; set; }
-        
+
         public Cliente Cliente { get; set; }
-                
+
         [Display(Name = "Produto")]
         public int ProdutoId { get; set; }
-        
+
         public Produto Produto { get; set; }
-              
+
         [Display(Name = "Data da compra")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime? DataCompra { get; set; }
