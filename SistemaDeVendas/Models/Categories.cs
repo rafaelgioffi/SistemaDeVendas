@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json.Serialization;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SistemaDeVendas.Models
 {
@@ -7,8 +9,9 @@ namespace SistemaDeVendas.Models
         [Key]
         public int CategoryId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} é obrigatória")]
         [Display(Name = "Categoria")]
+        [StringLength(25, MinimumLength = 1, ErrorMessage = "{0} deve ter entre {1} e {2}")]
         public string Name { get; set; }
     }
 }

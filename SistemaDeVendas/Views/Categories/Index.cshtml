@@ -26,18 +26,26 @@
     <tbody>
 @foreach (var item in Model) {                        
                 <tr>
-                    <td data-bs-toggle="collapse" href="#Collapse_@item.CategoryId" role="button" aria-expanded="true" aria-controls="Collapse_@item.CategoryId" onmouseover="$('#Collapse_@item.CategoryId').collapse('show');clearTimeout();" onmouseout="setTimeout(function(){$('#Collapse_@item.CategoryId').collapse('hide');}, 2000);">
-                    <p>
-                            <a>@Html.DisplayFor(modelItem => item.Name)</a>
-                    </p>                    
+                    <!-- popover -->
+                    <td>
+                        <button class="bg-transparent border-0" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" title="Ações" data-bs-delay-hide="3000" data-bs-delay="200" data-bs-content="<a class='btn btn-primary' href='Categories/Edit/@item.CategoryId'>
+                            <i class='bi bi-pencil-fill'></i> Editar</a>
+                                <a class='btn btn-danger' href='Categories/Delete/@item.CategoryId'><i class='bi bi-trash-fill'></i> Apagar</a>" data-bs-html="true" data-bs-trigger="hover focus">
+                                                <a>@Html.DisplayFor(modelItem => item.Name)</a>                                        
+                    </button>
+
+                    <!-- collapse -->
+                    <!--
+                    @* <td data-bs-toggle="collapse" href="#Collapse_@* @item.CategoryId" role="button" aria-expanded="true" aria-controls="Collapse_@* @item.CategoryId" onmouseover="$('#Collapse_@item.CategoryId').collapse('show');clearTimeout();" onmouseout="setTimeout(function(){$('#Collapse_@item.CategoryId').collapse('hide');}, 2000);">
                         <div class="collapse" id="Collapse_@item.CategoryId">
                     <div class="card card-body col-md-4">
                         <p>
                             <a class="btn btn-primary " asp-action="Edit" asp-route-id="@item.CategoryId"><i class="bi bi-pencil-fill"></i> Editar</a>
                             <a class="btn btn-danger " asp-action="Delete" asp-route-id="@item.CategoryId"><i class="bi bi-trash-fill"></i> Apagar</a>
-                        </p>
+                        </p> *@
                     </div>                    
                 </div>
+                    -->
             </td>            
         </tr>
 }
@@ -47,7 +55,13 @@
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }        
+        }
+        <script>
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            });
+        </script>
     }
 </body>
 </html>
