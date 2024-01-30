@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaDeVendas.Models
@@ -25,6 +26,12 @@ namespace SistemaDeVendas.Models
         [Display(Name = "Categoria")]
         public int CategoryId { get; set; }
         public Categories Category { get; set; }
+
+        [HiddenInput]
+        public DateTime CreateTime { get; set; }
+
+        [HiddenInput]
+        public DateTime UpdateTime { get; set; }
 
     }
 }

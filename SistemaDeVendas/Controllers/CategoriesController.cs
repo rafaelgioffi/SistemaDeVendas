@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using NuGet.Protocol.Plugins;
 using SistemaDeVendas.Models;
 
 namespace SistemaDeVendas.Controllers
@@ -37,10 +39,12 @@ namespace SistemaDeVendas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,Name")] Categories categories)
+        public async Task<IActionResult> Create([Bind("CategoryId,Name,CreateTime,UpdateTime")] Categories categories)
         {
             if (ModelState.IsValid)
             {
+                categories.CreateTime = DateTime.Now;
+                categories.UpdateTime = DateTime.Now;
                 _context.Add(categories);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -69,7 +73,7 @@ namespace SistemaDeVendas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,Name")] Categories categories)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,Name,UpdateTime")] Categories categories)
         {
             if (id != categories.CategoryId)
             {
@@ -80,6 +84,12 @@ namespace SistemaDeVendas.Controllers
             {
                 try
                 {
+                    string create = categories.CreateTime.ToString();                    
+                    if (create == "01/01/0001 00:00:00")
+                    {
+                        categories.CreateTime = DateTime.Now;
+                    }
+                    categories.UpdateTime = DateTime.Now;
                     _context.Update(categories);
                     await _context.SaveChangesAsync();
                 }

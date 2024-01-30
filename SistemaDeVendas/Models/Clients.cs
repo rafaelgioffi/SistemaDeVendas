@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 
 namespace SistemaDeVendas.Models
 {
@@ -29,7 +31,13 @@ namespace SistemaDeVendas.Models
         
         public string? Sex { get; set; }
 
-       public string ShowCPF()
+        [HiddenInput]
+        public DateTime CreateTime { get; set; }
+
+        [HiddenInput]
+        public DateTime UpdateTime { get; set; }
+
+        public string ShowCPF()
         {
             if (CPF.Length < 14)
             {
@@ -51,5 +59,6 @@ namespace SistemaDeVendas.Models
             }
             return 0;
         }
+        
     }
 }
