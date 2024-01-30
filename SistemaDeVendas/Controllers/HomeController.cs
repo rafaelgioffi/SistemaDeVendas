@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Models;
 using System.Diagnostics;
 
@@ -15,7 +16,11 @@ namespace SistemaDeVendas.Controllers
 
         public IActionResult Index()
         {
-            ViewData["TotalClients"] = _context.Clients.Count();
+            var CategoriesDates = _context.Categories
+                .FromSqlRaw("SELECT DISTINCT(CAST(CreateTime AS DATE)) FROM Categories;")
+                .ToList();
+            ViewData["CategoriesCreated"] = CategoriesDates;
+            ViewData["TotalClients"] = _context.Clients.Count();            
             ViewData["TotalSalles"] = _context.Salles.Count();
             ViewData["TotalProducts"] = _context.Products.Count();
 
@@ -32,5 +37,6 @@ namespace SistemaDeVendas.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+                
     }
 }

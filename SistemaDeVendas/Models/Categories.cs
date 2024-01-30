@@ -20,5 +20,6 @@ namespace SistemaDeVendas.Models
 
         [HiddenInput]
         public DateTime UpdateTime { get; set; }
+
     }
 }
